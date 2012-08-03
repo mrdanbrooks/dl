@@ -1,0 +1,17 @@
+TODO
+====
+
+Nonstateful Features
+--------------------
+o Seperate functionality into pydllib, interface, and install
+o .dlconfig - a config file
+  o location of trashcan
+  o maximum size of trashcan (requires .dlhistory)
+o list files in .Trashcan
+o show size of .Trashcan
+o delete all versions of a particular file or directory from .Trashcan
+
+Stateful Features
+-----------------
+o .dlhistory - keep track of order of deleted files
+o --undo - pop last action (restore files)
