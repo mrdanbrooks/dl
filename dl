@@ -30,7 +30,7 @@
 """ dl - moves files or directories to a "trash" directory """
 
 # Backup Directory Location
-backup_dir = "~/.Trashcan"
+#backup_dir = "~/.Trashcan"
 
 # Install Instructions
 # --------------------
@@ -214,6 +214,7 @@ def move_target(backup_dir_path, target_path):
         print "dl: cannot remove '%s': No such file or directory"%(target_path)
 
 def empty_trash(path):
+    """ Removes stuff from the trashcan path """
     print "dl: (perminently) remove backup files [y/n]? ",
     x = raw_input()
     if x.lower() == "y" or x.lower() == "yes":
@@ -229,6 +230,14 @@ def empty_trash(path):
 
 if __name__ == "__main__":
     # Initialize backup directory path and location
+    backup_dir = os.getenv("DL_TRASH_DIR")
+    if not backup_dir and os.uname()[0] == "Darwin":
+        backup_dir= "~/.Trash"
+
+    # If you still don't have a directory, use the default 
+    if not backup_dir:
+        backup_dir = "~/.Trashcan"
+        
     backup_dir = fix_backup_path(backup_dir)
     init_backup_dir(backup_dir)
 
