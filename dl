@@ -29,9 +29,6 @@
 # Last Modified [db] 2012.15.11
 """ dl - moves files or directories to a "trash" directory """
 
-# Backup Directory Location
-#backup_dir = "~/.Trashcan"
-
 # Install Instructions
 # --------------------
 # 1. Copy this program to somewhere in your path (/usr/local/bin) 
@@ -39,6 +36,8 @@
 # 3. If you get an error about missing argparse, dl can install it for you or
 #    you can install it yourself to /usr/local/lib/pymodules/
 
+# TODO:
+# Abide by http://standards.freedesktop.org/trash-spec/trashspec-0.8.html
 
 import shutil   # Utility functions for copying and moving files
 import os
@@ -233,9 +232,10 @@ if __name__ == "__main__":
     backup_dir = os.getenv("DL_TRASH_DIR")
     if not backup_dir and os.uname()[0] == "Darwin":
         backup_dir= "~/.Trash"
-
+    elif not backup_dir and os.uname()[0] == "Linux":
+        backup_dir="~/.local/share/Trash/files"
     # If you still don't have a directory, use the default 
-    if not backup_dir:
+    elif not backup_dir:
         backup_dir = "~/.Trashcan"
         
     backup_dir = fix_backup_path(backup_dir)
